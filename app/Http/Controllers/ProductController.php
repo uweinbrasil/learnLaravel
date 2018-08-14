@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +20,11 @@ class ProductController extends Controller
     public function index()
     {
         //
+        {
+            $products = Product::all();
+
+            return view('admin.product.index', compact('products'));
+        }
     }
 
     /**
@@ -24,7 +34,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product.create');
     }
 
     /**
@@ -35,7 +45,22 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,
+            [
+                'name' => 'required',
+                'description' => 'required',
+                'price' => 'required|integer',
+            ]
+        );
+
+        $product = new Product();
+        $product->user_id = auth()->id();
+        $product->name = request('name');
+        $product->description = request('description');
+        $product->price = request('price');
+        $product->save();
+
+        return redirect('/admin/product');
     }
 
     /**
@@ -46,7 +71,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('admin.product.show', compact('product'));
     }
 
     /**
@@ -57,7 +82,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit', compact('product'));
     }
 
     /**
@@ -69,7 +94,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $this->validate($request,
+            [
+                'name' => 'required',
+                'description' => 'required',
+                'price' => 'required|integer',
+            ]
+        );
+
+        $product->name = request('name');
+        $product->description = request('description');
+        $product->price = request('price');
+        $product->save();
+
+        return redirect('/admin/product');
     }
 
     /**
@@ -80,6 +118,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return back();
     }
 }
