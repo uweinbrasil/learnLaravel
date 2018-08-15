@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-X{{ $product->name }}X
+<!-- @php var_dump($product); @endphp -->
+<!-- X{{ $product->name }}X -->
     <div class="container">
     
         <div class="row">

@@ -69,8 +69,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show( Product $product)
     {
+        //var_dump($product);
+        //var_dump("SHOW");
         return view('admin.product.show', compact('product'));
     }
 
@@ -82,6 +84,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        //var_dump($product);
+        //var_dump("EDIT");
         return view('admin.product.edit', compact('product'));
     }
 
@@ -118,6 +122,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        //var_dump("DESTROY");
+        //var_dump($product);
         $product->delete();
 
         return back();
