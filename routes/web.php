@@ -27,6 +27,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('admin/product', 'ProductController');
 
+Route::resource('nerds', 'NerdController');
+
 //Route::get('admin/product/{$product}/destroy', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
 
 

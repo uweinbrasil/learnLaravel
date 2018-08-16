@@ -1,0 +1,20 @@
+﻿1) php artisan make:auth
+2) php artisan make:model Product -mrc
+3) php artisan migrate
+4) Model Factory
+$factory->define(App\Product::class, function (Faker\Generator $faker) {
+    return [
+	'user_id' => factory('App\User')->create()->id,
+	'name' => $faker->word(),
+	'description' => $faker->paragraph(),
+        'price' => $faker->randomNumber(4)
+    ];
+});
+5) php artisan tinker
+fake daten erzeugen
+factory('App\Product', 10)->create();
+6) Controller
+public function __construct()
+{
+    $this->middleware('auth');
+}

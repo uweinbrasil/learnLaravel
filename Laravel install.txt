@@ -1,0 +1,53 @@
+﻿https://scotch.io/tutorials/simple-laravel-crud-with-resource-controllers#getting-our-database-ready
+ab laravel 5
+1) create migration file for table
+	a) C:\wamp64\www\learnLaravel>php artisan make:migration create_nerds_table --table=nerds --create
+	b) Created Migration: 2018_08_16_123125_create_nerds_table
+2) edit created migration table 1b
+3) run migration file 1b
+	C:\wamp64\www\learnLaravel>php artisan migrate
+	Migrating: 2018_08_16_123125_create_nerds_table
+	Migrated:  2018_08_16_123125_create_nerds_table
+4) eloquent: manually create model \app\Nerd.php ( not !! \app\model\Nerd.php !!)	
+	<?php
+	namespace App;
+	use Illuminate\Database\Eloquent\Model;
+	// folder: app/Nerd.php
+    	class Nerd extends Model {}
+5) create controller
+	C:\wamp64\www\learnLaravel>php artisan make:controller NerdController
+	Controller created successfully. in \app\Http\Controller\NerdController.php
+6) setting up routes in /routes/web.php
+	a) Route::resource('nerds', 'NerdController');
+	b) show all routes associated with the app php artisan route:list
+7) create views in \ressources\views\nerd for controller GET methods
+ 	index.blade.php
+	create.blade.php
+	show.blade.php
+	edit.blade.php
+https://stackoverflow.com/questions/28847726/laravel-5-class-html-not-found
+8) 	composer require "laravelcollective/html":"^5.3.0"
+    	composer update
+	edit config/app.php:
+	a)  'providers' => [
+    		// ...
+   		 Collective\Html\HtmlServiceProvider::class,
+    		// ...
+ 		 ],
+	b) 'aliases' => [
+   		 // ...
+      		'Form' => Collective\Html\FormFacade::class,
+     		 'Html' => Collective\Html\HtmlFacade::class,
+    		// ...
+ 		 ],
+           c) HTML => Html
+           d) Input::old => Request::old
+           e) Validator not found => use Validator
+           f) controller ::
+              use App\Nerd;
+	//use Illuminate\Http\Request;
+	use Request;
+	use View;
+	use Validator;
+	use Session;
+	use Redirect;
